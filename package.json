@@ -1,0 +1,51 @@
+{
+	"name": "custard",
+	"version": "0.0.1",
+	"description": "A simple priority system for NodeJS",
+	"homepage": "https://github.com/dominikwilkowski/custard",
+	"author": {
+		"name": "Dominik Wilkowski",
+		"email": "Hi@Dominik-Wilkowski.com",
+		"url": "http://dominik-wilkowski.com/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/dominikwilkowski/custard.git"
+	},
+	"bugs": {
+		"url": "https://github.com/dominikwilkowski/custard/issues"
+	},
+	"licenses": [
+		{
+			"type": "GNU-GPL",
+			"url": "https://github.com/dominikwilkowski/custard/blob/master/LICENSE"
+		}
+	],
+	"license": "GNU-GPL",
+	"engines": {
+		"node": ">= 5.0.0"
+	},
+	"devDependencies": {
+		"grunt": "^1.0.1",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-uglify": "^1.0.1",
+		"grunt-contrib-watch": "^1.0.0",
+		"grunt-font": "0.0.11",
+		"grunt-text-replace": "^0.4.0",
+		"grunt-wakeup": "0.1.3",
+		"time-grunt": "^1.3.0"
+	},
+	"peerDependencies": {},
+	"dependencies": {},
+	"keywords": [
+		"font",
+		"banner",
+		"logo",
+		"CLI",
+		"console",
+		"ascii",
+		"pretty"
+	],
+	"main": "prod/prod.js",
+	"bin": {}
+}
