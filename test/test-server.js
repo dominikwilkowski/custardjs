@@ -13,6 +13,7 @@ var Fs = require('fs');
 var Http = require('http');
 var Chalk = require('chalk');
 var Express = require('express');
+var Custard = require('../prod/dev.js');
 var BodyParser = require('body-parser');
 
 
@@ -41,10 +42,28 @@ var App = (function Application() {
 			tester.get('*', function GetListener(request, response) {
 				App.debugging( 'Request received!', 'receive' );
 
-				App.random.run();
-				App.random.run();
-				App.random.run();
-				App.random.run();
+				Custard.add([
+					{
+						run: "string",
+						priority: "11.9",
+					},
+					{
+						run: App.random.run,
+						priority: 11.9,
+					},
+					{
+						run: App.random.run,
+					},
+					{
+						run: App.random.run,
+						priority: 100,
+					},
+				]);
+
+				// App.random.run();
+				// App.random.run();
+				// App.random.run();
+				// App.random.run();
 			});
 
 		},
