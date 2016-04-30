@@ -155,12 +155,13 @@ App.init();
 	//
 	// @return            [console]  Print done message and instance
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	module.done = function randomDone( instance ) {
+	module.done = function randomDone( instance, callback = function(){} ) {
 		var timeout = Math.random() * (10000 - 100) + 100;
 
 		setTimeout(function() {
 			inProgress --;
 			App.debugging( 'random: Run random: Finished: ' + instance, 'send' );
+			callback(null, instance);
 
 			if(inProgress === 0) {
 				App.debugging( 'random: Run random: Finished: No more processes', 'finished' );

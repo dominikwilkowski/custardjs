@@ -40,7 +40,7 @@
 	},
 	"peerDependencies": {},
 	"dependencies": {
-		"promise-wrap": "^0.1.0"
+		"bluebird": "^3.3.5"
 	},
 	"keywords": [
 		"nodejs",
