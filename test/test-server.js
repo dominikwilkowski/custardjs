@@ -42,28 +42,10 @@ var App = (function Application() {
 			tester.get('*', function GetListener(request, response) {
 				App.debugging( 'Request received!', 'receive' );
 
-				Custard.add([
-					{
-						run: "string",
-						priority: "11.9",
-					},
-					{
-						run: App.random.run,
-						priority: 11.9,
-					},
-					{
-						run: App.random.run,
-					},
-					{
-						run: App.random.run,
-						priority: 100,
-					},
-				]);
-
-				// App.random.run();
-				// App.random.run();
-				// App.random.run();
-				// App.random.run();
+				Custard.run( App.random.run, 200, 'test' );
+				Custard.run( App.random.run, 200, 'test' );
+				Custard.run( App.random.run, 200, 'test' );
+				Custard.run( App.random.run, 200, 'test' );
 			});
 
 		},
@@ -155,13 +137,14 @@ App.init();
 	//
 	// @return            [console]  Print done message and instance
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	module.done = function randomDone( instance, callback = function(){} ) {
+	module.done = function randomDone( instance ) {
 		var timeout = Math.random() * (10000 - 100) + 100;
 
 		setTimeout(function() {
 			inProgress --;
 			App.debugging( 'random: Run random: Finished: ' + instance, 'send' );
-			callback(null, instance);
+
+			Custard.finish('test');
 
 			if(inProgress === 0) {
 				App.debugging( 'random: Run random: Finished: No more processes', 'finished' );
