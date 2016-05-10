@@ -35,65 +35,30 @@ var App = (function Application() {
 			tester
 				.use( BodyParser.urlencoded({ extended: false }) )
 				.listen(1337, function PortListener() {
-					App.debugging( 'Server started on port 1337', 'report' );
+					console.log('Server started on port 1337');
 				});
 
 
 			tester.get('*', function GetListener(request, response) {
-				App.debugging( 'Request received!', 'receive' );
+				console.log('Request received!');
 
-				Custard.run( App.random.run, 200, 'test' );
-				Custard.run( App.random.run, 200, 'test' );
-				Custard.run( App.random.run, 200, 'test' );
-				Custard.run( App.random.run, 200, 'test' );
+
+				Custard.run([
+					{
+						'run': App.random.test1,
+						'maxCalls': 5, //only run this if there are less than 5 processes currently running
+					},{
+						'run': App.random.test2,
+						'maxCalls': 10, //only run this if there are less than 10 processes currently running
+					},{
+						'run': App.random.test3, //run this always
+					}
+				], function() { //run this when we start sacrificing
+					console.log('Stuff we can do to report when things start to crack down!');
+				});
+
+
 			});
-
-		},
-
-
-		//----------------------------------------------------------------------------------------------------------------------------------------------------------
-		// Debugging prettiness
-		//
-		// @param  text  [string]   Text to be printed to debugger
-		// @param  code  [string]   The urgency as a string: ['report', 'error', 'interaction', 'send', 'receive']
-		//
-		// @return  [output]  console.log output
-		//----------------------------------------------------------------------------------------------------------------------------------------------------------
-		debugging: function Debugging( text, code ) {
-
-			if( code === 'headline' ) {
-				if( App.DEBUG ) {
-					var fonts = new CFonts({
-						'text': text,
-						'colors': ['white', 'gray'],
-						'maxLength': 12,
-					});
-				}
-			}
-
-			if( code === 'report' ) {
-				if( App.DEBUG ) console.log(Chalk.bgWhite("\n" + Chalk.bold.green(' \u2611  ') + Chalk.black(text + ' ')));
-			}
-
-			else if( code === 'error' ) {
-				if( App.DEBUG ) console.log(Chalk.bgWhite("\n" + Chalk.red(' \u2612  ') + Chalk.black(text + ' ')));
-			}
-
-			else if( code === 'interaction' ) {
-				if( App.DEBUG ) console.log(Chalk.bgWhite("\n" + Chalk.blue(' \u261C  ') + Chalk.black(text + ' ')));
-			}
-
-			else if( code === 'send' ) {
-				if( App.DEBUG ) console.log(Chalk.bgWhite("\n" + Chalk.bold.cyan(' \u219D  ') + Chalk.black(text + ' ')));
-			}
-
-			else if( code === 'receive' ) {
-				if( App.DEBUG ) console.log(Chalk.bgWhite("\n" + Chalk.bold.cyan(' \u219C  ') + Chalk.black(text + ' ')));
-			}
-
-			else if( code === 'finished' ) {
-				if( App.DEBUG ) console.log(Chalk.bgGreen("\n" + Chalk.bold.cyan(' \u219C  ') + Chalk.black(text + ' ')));
-			}
 
 		},
 	}
@@ -118,38 +83,39 @@ App.init();
 	var inProgress = 0;
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Count requests and execute App.random.done()
+	// test method 1
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	module.run = function randomRun() {
-		randInstance ++;
-		inProgress ++;
+	module.test1 = function randomRun1() {
+		console.log('called test1 function');
 
-		App.debugging( 'random: Run random: ' + randInstance + ' with proccesses running: ' + inProgress, 'report' );
-
-		App.random.done( randInstance );
+		setTimeout(function() {
+			console.log('queue: ' + Custard.get());
+		}, 5000);
 	};
 
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Generate random timout(1-10sec) to report this is done
-	//
-	// @param   instance  [integer]  ID of module
-	//
-	// @return            [console]  Print done message and instance
+	// test method 2
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
-	module.done = function randomDone( instance ) {
-		var timeout = Math.random() * (10000 - 100) + 100;
+	module.test2 = function randomRun2() {
+		console.log('called test2 function');
 
 		setTimeout(function() {
-			inProgress --;
-			App.debugging( 'random: Run random: Finished: ' + instance, 'send' );
+			console.log('queue: ' + Custard.get());
+		}, 6000);
+	};
 
-			Custard.finish('test');
+	//------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// test method 3
+	//------------------------------------------------------------------------------------------------------------------------------------------------------------
+	module.test3 = function randomRun3() {
+		console.log('called test3 function');
 
-			if(inProgress === 0) {
-				App.debugging( 'random: Run random: Finished: No more processes', 'finished' );
-			}
-		}, timeout);
+		setTimeout(function() {
+			console.log('queue: ' + Custard.get());
+
+			Custard.finished(); //finish on this last test
+		}, 10000);
 	};
 
 
