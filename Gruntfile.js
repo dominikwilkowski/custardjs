@@ -33,8 +33,8 @@
 var SETTINGS = function() {
 	return {
 		'folder': {
-			'dev': 'dev/',
-			'prod': 'prod/',
+			'dev': 'dev',
+			'prod': 'prod',
 			'Packagejson': 'package.json',
 		},
 	};
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
 			},
 			prod: {
 				files: {
-					'<%= SETTINGS.folder.prod %>/prod.js': ['<%= SETTINGS.folder.dev %>/*.js'],
+					'<%= SETTINGS.folder.prod %>/prod.js': ['<%= SETTINGS.folder.prod %>/prod.js'],
 				},
 			},
 		},
@@ -141,6 +141,12 @@ module.exports = function(grunt) {
 			dev: {
 				files: {
 					'<%= SETTINGS.folder.prod %>/dev.js': ['<%= SETTINGS.folder.dev %>/*.js'],
+				},
+			},
+
+			prod: {
+				files: {
+					'<%= SETTINGS.folder.prod %>/prod.js': ['<%= SETTINGS.folder.prod %>/*.js'],
 				},
 			},
 		},

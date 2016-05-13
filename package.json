@@ -1,6 +1,6 @@
 {
 	"name": "custardjs",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A simple priority system for NodeJS",
 	"homepage": "https://github.com/dominikwilkowski/custardjs",
 	"author": {
