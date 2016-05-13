@@ -18,7 +18,7 @@ You know when you're in one of those 5PM meetings after a long day of crazy stuf
 arbitrary solutions to complete arbitrary problems that will mean you'll have to stay late and you start to get angry? This is because the stress causes you
 to sacrifice higher function like sympathy and social etiquette in order to keep lower functions like logic and speech working.
 
-When running a node application and your boss wants you to add funcky little things that add no value but bring your applications performance down you want to
+When running a node application and your boss wants you to add funky little things that add no value but bring your applications performance down you want to
 start sacrificing those functions when the demand gets too high in order to keep lower functions alive.
 
 CustardJS simply keeps track of how many requests are running and starts sacrificing sub functions you specify according to a `maxCalls` property set by you.
