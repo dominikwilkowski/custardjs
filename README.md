@@ -21,7 +21,7 @@ to sacrifice higher function like sympathy and social etiquette in order to keep
 When running a node application and your boss wants you to add funcky little things that add no value but bring your applications performance down you want to
 start sacrificing those functions when the demand gets too high in order to keep lower functions alive.
 
-CustradJS simply keeps track of how many requests are running and starts sacrificing sub functions you specify according to a `maxCalls` property set by you.
+CustardJS simply keeps track of how many requests are running and starts sacrificing sub functions you specify according to a `maxCalls` property set by you.
 
 
 ## Installing
@@ -52,7 +52,7 @@ Custard.run([
 ## Usage
 
 #### run
-Type: `<method>`
+Type: `<method>`  
 Parameters: `targets <object>` and `failsafe <function> (optional)`
 
 The main method to invoke all parts of your application and assigned priority. `maxCalls` means the method or function will only be run if there are less then
@@ -80,7 +80,7 @@ Custard.run([
 ```
 
 #### finished
-Type: `<method>`
+Type: `<method>`  
 Parameters: `none`
 
 When all your functions completed and your promise is resloved, run this method to make sure all calls are counted correctly.
