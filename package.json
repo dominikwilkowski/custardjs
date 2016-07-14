@@ -1,6 +1,6 @@
 {
 	"name": "custardjs",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "A simple priority system for NodeJS",
 	"homepage": "https://github.com/dominikwilkowski/custardjs",
 	"author": {
@@ -23,7 +23,7 @@
 	],
 	"license": "GNU-GPL",
 	"engines": {
-		"node": ">= 5.0.0"
+		"node": ">= 6.0.0"
 	},
 	"devDependencies": {
 		"body-parser": "^1.15.2",
@@ -39,6 +39,7 @@
 	},
 	"peerDependencies": {},
 	"dependencies": {
+		"cfonts": "^1.0.1",
 		"chalk": "^1.1.3"
 	},
 	"keywords": [

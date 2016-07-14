@@ -33,7 +33,7 @@ $ npm install custardjs
 ```
 
 ```js
-var Custard = require('../prod/dev.js');
+const Custard = require('custardjs');
 
 Custard.run([
 	{
@@ -62,15 +62,15 @@ The failsafe function is optional and is run when we drop runs becasue we reache
 ```js
 Custard.run([
 	{
-		'run': function1, //run this always
+		'run': function1,  //run this always
 	},{
 		'run': function2,
-		'maxCalls': 100, //only run this if there are less than 100 processes currently running
+		'maxCalls': 100,   //only run this if there are less than 100 processes currently running
 	},{
 		'run': function3,
-		'maxCalls': 900, //only run this if there are less than 900 processes currently running
+		'maxCalls': 900,   //only run this if there are less than 900 processes currently running
 	}
-], function() { //run this when we start sacrificing some of our functionality
+], function() {        //run this when we start sacrificing some of our functionality
 	console.log('Stuff we can do to report when things start to crack down!');
 
 	//send email to sys-admin
@@ -100,11 +100,25 @@ Custard.get()
 ```
 
 
+## Tests
+> The test is poorly written right now and depends on an http request. Unit tests shall be added soon.
+
+To run the current test:
+
+```shell
+node test/test-server.js
+```
+
+This starts an express app that listens to `localhost:1337`. When you request that URL in your browser, the app will run three delayed methods and check if
+cuastardJS keeps track of them all and recognises when the queue is empty.
+
+
 ## Contributing
 Please look at the coding style and work with it, not against it ;)
 
 
 ## Release History
+* 0.2.0  -  Converted to ES6, bumped node requirement
 * 0.1.1  -  Fixed prod folder ignores
 * 0.1.0  -  First working example
 * 0.0.1  -  initial commit
