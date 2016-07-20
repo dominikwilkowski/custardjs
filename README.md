@@ -118,6 +118,7 @@ Please look at the coding style and work with it, not against it ;)
 
 
 ## Release History
+* 0.2.1  -  Fixed prod concat bug
 * 0.2.0  -  Converted to ES6, bumped node requirement
 * 0.1.1  -  Fixed prod folder ignores
 * 0.1.0  -  First working example
