@@ -35,8 +35,6 @@ const Custard = (() => {
 // @return           [string]     ID of the function run
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		run: ( targets, failsafe ) => {
-			Custard.QUEUE ++;
-
 			targets.forEach(function iterateArguments( bit ) {
 				//error handling
 				if( typeof bit.run !== 'function' ) {
@@ -59,6 +57,8 @@ const Custard = (() => {
 				//check the maxCalls
 				if( Custard.QUEUE < bit.maxCalls || bit.maxCalls === 0 ) {
 					Custard.debugging( 'Calling ' + bit.run.name + ' and a QUEUE: ' + Custard.QUEUE, 'report' );
+
+					Custard.QUEUE ++; //count only if we shoot off the function
 
 					bit.run(); //run what needs to be run!
 				}

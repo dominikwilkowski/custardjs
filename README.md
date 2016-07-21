@@ -46,6 +46,18 @@ Custard.run([
 		'maxCalls': 900,
 	}
 ]);
+
+function function1() {
+	Custard.finished();
+}
+
+function function2() {
+	Custard.finished();
+}
+
+function function3() {
+	Custard.finished();
+}
 ```
 
 
@@ -118,6 +130,7 @@ Please look at the coding style and work with it, not against it ;)
 
 
 ## Release History
+* 0.2.2  -  Fixed critical count bug
 * 0.2.1  -  Fixed prod concat bug
 * 0.2.0  -  Converted to ES6, bumped node requirement
 * 0.1.1  -  Fixed prod folder ignores
