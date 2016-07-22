@@ -11,9 +11,9 @@
 //                                                                                  Created by Dominik Wilkowski
 // @desc     Custard.JS, a priority system for NodeJS
 // @author   Dominik Wilkowski
-// @website  https://github.com/dominikwilkowski/custardjs
+// @website  https://github.com/dominikwilkowski/custardjs, https://www.npmjs.com/package/custardjs
 // @issues   https://github.com/dominikwilkowski/custardjs/issues
-// @license  https://raw.githubusercontent.com/dominikwilkowski/custardjs/master/LICENSE
+// @license  GNU GPL, https://raw.githubusercontent.com/dominikwilkowski/custardjs/master/LICENSE
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -30,7 +30,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Settings
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-var SETTINGS = function() {
+const SETTINGS = function() {
 	return {
 		'folder': {
 			'dev': 'dev',
