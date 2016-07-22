@@ -135,7 +135,7 @@ Custard.finished();
 ```
 
 #### getQueue
-Type: `<method>`
+Type: `<method>`  
 Parameters: `none`
 
 If you want to know how many calls are in the queue mid-flow, run the `getQueue` method. It returns the number of calls in queue. This includes all tasks you
@@ -147,7 +147,7 @@ Custard.getQueue()
 
 
 #### getRequest
-Type: `<method>`
+Type: `<method>`  
 Parameters: `none`
 
 If you want to know how many requests have been fired off to Custard, run the `getRequest` method. This will return the number of times you ran `run`.
