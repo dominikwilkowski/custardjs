@@ -2,6 +2,10 @@
  *
  * Testing server
  *
+ * The test app spinns up a server on localhost:1337. Requesting this URL via your trusted browser will shoot off a request for Custard.
+ * Each request calls three functions each finishing via timeout to simulate a long I/O process. Requesting the URL several times you should see some functions
+ * being sacraficed.
+ *
  **************************************************************************************************************************************************************/
 
 'use strict';
@@ -10,7 +14,7 @@
 // Dependencies
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 const Express = require('express');
-const Custard = require('../prod/dev.js');
+const Custard = require('../prod/prod.js');
 const BodyParser = require('body-parser');
 
 
@@ -34,27 +38,37 @@ const App = (() => {
 			//starting server
 			tester
 				.use( BodyParser.urlencoded({ extended: false }) )
-				.listen(1337, function PortListener() {
+				.listen(1337, () => {
 					console.log('Server started on port 1337');
 				});
 
 
-			tester.get('*', function GetListener(request, response) {
-				console.log('Request received!');
+			tester.get('*', (request, response) => {
+				console.log(` Request received! ${Custard.getRequest()}`);
 
 
 				Custard.run([
 					{
-						'run': App.random.test1,
-						'maxCalls': 5, //only run this if there are less than 5 processes currently running
+						run: App.random.test1,
+						maxCalls: 3, //only run this if there are less than 5 processes currently running
+						fallback: () => {
+							console.log(`X not running test1`);
+						},
 					},{
-						'run': App.random.test2,
-						'maxCalls': 10, //only run this if there are less than 10 processes currently running
+						run: App.random.test2,
+						maxCalls: 5, //only run this if there are less than 10 processes currently running
+						fallback: () => {
+							console.log(`X not running test2`);
+						},
 					},{
-						'run': App.random.test3, //run this always
+						run: App.random.test3, //run this always
+						fallback: () => {
+							console.log(`X not running test3`); //should never happen
+						},
 					}
-				], function() { //run this when we start sacrificing
-					console.log('Stuff we can do to report when things start to crack down!');
+				],
+				() => {
+					console.log('\n  DONE');
 				});
 
 
@@ -81,10 +95,12 @@ App.random = (() => {
 // test method 1
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		test1: () => {
-			console.log('called test1 function');
+			console.log(`  called test1 function`);
 
-			setTimeout(function() {
-				console.log('queue: ' + Custard.get());
+			setTimeout(() => {
+				console.log(`  queue: ${Custard.getQueue()}`);
+
+				Custard.finished();
 			}, 5000);
 		},
 
@@ -93,10 +109,12 @@ App.random = (() => {
 // test method 2
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		test2: () => {
-			console.log('called test2 function');
+			console.log(`  called test2 function`);
 
-			setTimeout(function() {
-				console.log('queue: ' + Custard.get());
+			setTimeout(() => {
+				console.log(`  queue: ${Custard.getQueue()}`);
+
+				Custard.finished();
 			}, 6000);
 		},
 
@@ -104,13 +122,13 @@ App.random = (() => {
 // test method 3
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		test3: () => {
-			console.log('called test3 function');
+			console.log(`  called test3 function`);
 
-			setTimeout(function() {
-				console.log('queue: ' + Custard.get());
+			setTimeout(() => {
+				console.log(`  queue: ${Custard.getQueue()}`);
 
-				Custard.finished(); //finish on this last test
-			}, 10000);
+				Custard.finished();
+			}, 8000);
 		},
 
 	}
